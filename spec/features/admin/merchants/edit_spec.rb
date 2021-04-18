@@ -11,8 +11,8 @@ RSpec.describe 'Admin Merchants Edit Page' do
   describe 'as an admin' do
     it "loads with a form populated with merchant's info" do
       within('#form') do
-        fill_in('merchant_name', with: 'Some Record')
-        click_on 'submit'
+        fill_in('merchant_name', with: 'New Record')
+        click_on 'Submit'
       end
       expect(current_path).to eq(admin_merchant_path(@merchant))
     end
@@ -22,7 +22,7 @@ RSpec.describe 'Admin Merchants Edit Page' do
 
       within('#form') do
         fill_in('merchant_name', with: '')
-        click_on 'submit'
+        click_on 'Submit'
       end
 
       expect(current_path).to eq(admin_merchant_path(@merchant))

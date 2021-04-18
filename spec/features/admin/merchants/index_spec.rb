@@ -51,5 +51,26 @@ RSpec.describe "As an admin" do
         expect(page).to_not have_content(@merchant1.name)
       end
     end
+
+    it "shows 2 sections, one for Enabled Merchants and one for Disabled Merchants" do
+      within("#enabled_merchants") do
+        expect(page).to have_content("Enabled Merchants")
+        expect(page).to have_content(@merchant1.name)
+        expect(page).to have_content(@merchant2.name)
+
+      end
+
+      within("#disabled_merchants") do
+        expect(page).to have_content("Disabled Merchants")
+        expect(page).to have_content(@merchant3.name)
+        expect(page).to have_content(@merchant4.name)
+      end
+    end
+
+    it "Shows a link to create a new merchant." do
+      expect(page).to have_link("Create New Merchant")
+      click_link("Create New Merchant")
+      expect(current_path).to eq(new_admin_merchant_path)
+    end
   end
 end
