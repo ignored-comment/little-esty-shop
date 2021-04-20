@@ -14,7 +14,7 @@ RSpec.describe 'merchant items show page' do
     click_on "#{@item1.name}"
 
     expect(page).to have_current_path("/merchants/#{@merchant1.id}/items/#{@item1.id}")
-    save_and_open_page
+    # save_and_open_page
     expect(page).to have_content(@item1.name)
     expect(page).to have_content(@item1.description)
     expect(page).to have_content(@item1.unit_price)
