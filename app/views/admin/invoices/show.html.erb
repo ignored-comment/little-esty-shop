@@ -12,3 +12,11 @@
 <% end %><br><br>
 
 <p>Total Revenue: <%= @invoice.invoice_items.total_revenue %></p>
+
+<section id='update_invoice_status'>
+  <%= form_with model: [:admin, @invoice], local: true do |form| %>
+    <%= form.label :status %>
+    <%= form.select :status, [ "in progress", "cancelled", "completed" ] %>
+    <%= form.submit %>
+  <% end %>
+</section>
