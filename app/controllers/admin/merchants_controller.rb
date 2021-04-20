@@ -27,9 +27,9 @@ class Admin::MerchantsController < ApplicationController
     if merchant.save
       flash[:notice]= 'Merchant Has Been Created!'
       redirect_to admin_merchants_path
-    # else
-    #   flash[:error] = "Merchant not created due to invalid input."
-    #   redirect_to new_admin_merchant_path
+    else
+      flash[:error] = "Merchant not created due to invalid input."
+      redirect_to new_admin_merchant_path
     end
   end
 

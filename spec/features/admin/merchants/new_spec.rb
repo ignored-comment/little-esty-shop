@@ -20,16 +20,16 @@ RSpec.describe 'Admin merchants new spec' do
       end
     end
 
-  # it 'shows flash message if fields are saved blank' do
-  #     visit new_admin_merchant_path
-  #
-  #     within('#form') do
-  #       fill_in('merchant_name', with: '')
-  #       click_on 'Submit'
-  #     end
-  #
-  #     expect(current_path).to eq(new_admin_merchant_path)
-  #     expect(page).to have_selector('.flash-message')
-  #   end
+  it 'shows flash message if fields are saved blank' do
+      visit new_admin_merchant_path
+
+      within('#form') do
+        fill_in('merchant_name', with: '')
+        click_on 'Submit'
+      end
+
+      expect(current_path).to eq(new_admin_merchant_path)
+      expect(page).to have_selector('.flash-message')
+    end
   end
 end

@@ -36,4 +36,29 @@ RSpec.describe 'Merchant Invoice Index' do
       expect(page).to have_content(@item1.unit_price)
     end
   end
+  describe "you can update the merchant invoice status" do
+    it 'Invoive has a select field with the current invoice selected' do
+      visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+
+      within '#update_invoice_status' do
+        expect(page).to have_content(@invoice1.status)
+      end
+    end
+
+    it 'I can select a new status for the Invoice and it updates on the Admin Invoice Show Page' do
+      visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+
+      select 'enabled', from: 'Enabled'
+      click_on('Update Invoice')
+
+      expect(current_path).to eq(admin_invoice_path(@invoice1))
+      expect(page).to have_content("enabled")
+
+      select 'disabled', from: 'Enabled'
+      click_on('Update Invoice')
+
+      expect(current_path).to eq(admin_invoice_path(@invoice1))
+      expect(page).to have_content("disabled")
+    end
+  end
 end

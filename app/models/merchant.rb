@@ -1,5 +1,5 @@
 class Merchant < ApplicationRecord
-  # validates_presence_of :name
+  validates_presence_of :name
 
   has_many :items
   has_many :invoice_items, through: :items
@@ -45,7 +45,8 @@ class Merchant < ApplicationRecord
   end
 
   def top_five_customers
-  customers.joins(:invoices, :transactions)
+    # customers.joins(:transactions)
+    customers.joins(:invoices, :transactions)
     .where('transactions.result = ?', 0)
     .group('customers.id')
     .select('customers.*, count(*) AS transaction_count')
