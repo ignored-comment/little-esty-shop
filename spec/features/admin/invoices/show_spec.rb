@@ -5,10 +5,10 @@ RSpec.describe 'Admin Invoice Show' do
     @merchant1 = create(:merchant)
     @item1 = create(:item, merchant_id: @merchant1.id)
     @customer1 = create(:customer)
-    @invoice1 = create(:invoice, customer_id: @customer1.id)
+    @invoice1 = create(:invoice, customer_id: @customer1.id, status: 0)
     @invoice_items1 = create(:invoice_item, item_id: @item1.id, invoice_id: @invoice1.id, quantity: 4, unit_price: 1200)
     @item2 = create(:item, merchant_id: @merchant1.id)
-    @invoice2 = create(:invoice, customer_id: @customer1.id)
+    @invoice2 = create(:invoice, customer_id: @customer1.id, status: 0)
     @invoice_items2 = create(:invoice_item, item_id: @item2.id,invoice_id: @invoice1.id, quantity: 2, unit_price: 73000)
   end
 
@@ -40,6 +40,32 @@ RSpec.describe 'Admin Invoice Show' do
       expect(page).to have_content(@invoice1.format_time)
       expect(page).to have_content(@customer1.first_name)
       expect(page).to have_content(@customer1.last_name)
+    end
+
+    describe "you can update an invoice status" do
+      it 'Invoive has a select field with the current invoice selected' do
+        visit admin_invoice_path(@invoice1)
+
+        within '#update_invoice_status' do
+          expect(page).to have_content(@invoice1.status)
+        end
+      end
+
+      it 'I can select a new status for the Invoice and it updates on the Admin Invoice Show Page' do
+        visit admin_invoice_path(@invoice1)
+
+        select 'completed', from: 'Status'
+        click_on('Update Invoice')
+
+        expect(current_path).to eq(admin_invoice_path(@invoice1))
+        expect(page).to have_content("completed")
+
+        select 'cancelled', from: 'Status'
+        click_on('Update Invoice')
+
+        expect(current_path).to eq(admin_invoice_path(@invoice1))
+        expect(page).to have_content("cancelled")
+      end
     end
   end
 end

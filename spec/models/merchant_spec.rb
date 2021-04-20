@@ -9,6 +9,10 @@ RSpec.describe Merchant, type: :model do
     it { should have_many(:transactions).through(:invoices) }
   end
 
+  # describe 'validations' do
+  #   it { should validate_presence_of(:name) }
+  # end
+
 
   describe 'class methods' do
     before :each do
@@ -94,6 +98,42 @@ RSpec.describe Merchant, type: :model do
         @transactions = create_list(:transaction, 1, invoice_id: @invoice_item1.invoice.id, result: 0)
         @transactions2 = create_list(:transaction, 2, invoice_id: @invoice_item2.invoice.id, result: 0)
         @transactions3 = create_list(:transaction, 3, invoice_id: @invoice_item4.invoice.id, result: 0)
+
+        # @merchant1 = create(:merchant)
+        #
+        # @item = create(:item, merchant_id: @merchant1.id, enabled: true)
+        # @item2 = create(:item, merchant_id: @merchant1.id, enabled: true)
+        # @item3 = create(:item, merchant_id: @merchant1.id, enabled: true)
+        # @item4 = create(:item, merchant_id: @merchant1.id)
+        # @item5 = create(:item, merchant_id: @merchant1.id)
+        # @item6 = create(:item, merchant_id: @merchant1.id)
+        #
+        # @customer1 = create(:customer)
+        # @invoice1 = create(:invoice, customer_id: @customer1.id, status: 2, created_at: "2019-03-20 09:54:09 UTC")
+        # @invoice2 = create(:invoice, customer_id: @customer1.id, status: 2, created_at: "2011-04-25 09:54:09 UTC")
+        # @invoice3 = create(:invoice, customer_id: @customer1.id, status: 2, created_at: "2018-08-01 09:54:09 UTC")
+        # @invoice4 = create(:invoice, customer_id: @customer1.id, status: 0, created_at: "2020-07-01 09:54:09 UTC")
+        #
+        # @invoice_item = create(:invoice_item, invoice_id: @invoice.id, item_id: @item.id, status: 0)
+        # @invoice_item2 = create(:invoice_item, invoice_id: @invoice2.id, item_id: @item2.id, status: 1)
+        # @invoice_item3 = create(:invoice_item, invoice_id: @invoice3.id, item_id: @item3.id, status: 1)
+        # @invoice_item4 = create(:invoice_item, invoice_id: @invoice4.id, item_id: @item4.id, status: 0)
+        # @invoice_item5 = create(:invoice_item_with_invoices, item_id: @item5.id, status: 2)
+        # @invoice_item6 = create(:invoice_item_with_invoices, item_id: @item6.id, status: 2)
+        #
+        # @transactions = create_list(:transaction, 6, invoice_id: @invoice_item.invoice.id, result: 0)
+        # @transactions2 = create_list(:transaction, 7, invoice_id: @invoice_item2.invoice.id, result: 0)
+        # @transactions3 = create_list(:transaction, 8, invoice_id: @invoice_item3.invoice.id, result: 0)
+        # @transactions4 = create_list(:transaction, 9, invoice_id: @invoice_item4.invoice.id, result: 0)
+        # @transactions5 = create_list(:transaction, 10, invoice_id: @invoice_item5.invoice.id, result: 0)
+        # @transactions6 = create_list(:transaction, 11, invoice_id: @invoice_item6.invoice.id, result: 1)
+
+        # @customer1 = @invoice_item.invoice.customer
+        # @customer2 = @invoice_item2.invoice.customer
+        # @customer3 = @invoice_item3.invoice.customer
+        # @customer4 = @invoice_item4.invoice.customer
+        # @customer5 = @invoice_item5.invoice.customer
+        # @customer6 = @invoice_item6.invoice.customer
       end
 
       describe '#invoice_items_ready_to_ship' do
@@ -114,6 +154,12 @@ RSpec.describe Merchant, type: :model do
           expect(@merchant1.best_day).to eq(@invoice2.format_time)
         end
       end
+
+      # describe '#top_five_customers' do
+      #   it 'finds the top 5 customers with highest successful transactions' do
+      #     expect(@merchant1.find_top_customers).to eq([@customer5, @customer4, @customer3, @customer2, @customer])
+      #   end
+      # end
     end
   end
 end

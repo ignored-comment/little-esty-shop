@@ -1,4 +1,6 @@
 class Merchant < ApplicationRecord
+  # validates_presence_of :name
+
   has_many :items
   has_many :invoice_items, through: :items
   has_many :invoices, through: :invoice_items
@@ -16,11 +18,10 @@ class Merchant < ApplicationRecord
     update(status: false)
   end
 
-
   def invoice_items_ready_to_ship
     invoice_items.where.not(status: :shipped)
    .joins(:invoice)
-   .where('invoices.status = ?', Invoice.statuses[:completed])
+   .where('invoices.status = ?', 2)
    .order('invoices.created_at')
   end
 
@@ -41,6 +42,14 @@ class Merchant < ApplicationRecord
     .order(total_revenue: :desc)
     .first
     .format_time
+  end
 
+  def top_five_customers
+  customers.joins(:invoices, :transactions)
+    .where('transactions.result = ?', 0)
+    .group('customers.id')
+    .select('customers.*, count(*) AS transaction_count')
+    .order(transaction_count: :desc)
+    .limit(5)
   end
 end
