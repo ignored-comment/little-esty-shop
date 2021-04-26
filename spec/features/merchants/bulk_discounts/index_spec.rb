@@ -47,11 +47,20 @@ RSpec.describe 'Merchant BulkDiscounts Index' do
       click_link "Create a New Discount"
 
       fill_in "Discount percentage", with: "99"
-      fill_in "Quantity", with: "99"
+      fill_in "Quantity", with: "98"
 
       click_button "Create Bulk discount"
 
       expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
+      expect(page).to have_content("99")
+      expect(page).to have_content("98")
+    end
+
+    it 'lets me delete a discount' do
+      within("#discount-#{@discount1.id}") do
+        click_on("Delete this Discount")
+      end
+      expect(page).not_to have_content("Discount #1")
     end
   end
 end
