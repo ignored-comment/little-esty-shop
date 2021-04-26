@@ -6,6 +6,8 @@
   Discount Quantity Threshold: <%= discount.quantity %></p>
 <% end %>
 
+<%= link_to 'Create a New Discount', new_merchant_bulk_discount_path(@merchant) %>
+
 <h1>Upcoming Holidays</h1>
 <% UpcomingHolidaysServices.new.holidays.each do |holiday| %>
   <p><%= holiday[:date] %> - <%= holiday[:name] %>

@@ -68,17 +68,6 @@ RSpec.describe 'Merchant DashBoard Index' do
         click_link "My Discounts"
         expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
       end
-
-      it 'shows me a list of all discounts, with each discount showing me percentage and quantity' do
-        expect(page).to have_content(@discount1.discount_percentage)
-        expect(page).to have_content(@discount1.quantity)
-        expect(page).to have_content(@discount2.discount_percentage)
-        expect(page).to have_content(@discount2.quantity)
-      end
-
-      it 'shows me a section with a header of Upcoming Holidays' do
-        expect(page).to have_content("Upcoming Holidays")
-      end
     end
   end
 end

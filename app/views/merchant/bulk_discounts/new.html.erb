@@ -1,0 +1,10 @@
+<h1>New Bulk Discount</h1>
+
+<%= form_with(model: BulkDiscount.new, url: merchant_bulk_discounts_path(params[:merchant_id]), method: :post, local: true) do |form| %>
+  <%= form.label :discount_percentage %>
+  <%= form.number_field :discount_percentage, :step => "0.01" %>
+  <%= form.label :quantity %>
+  <%= form.number_field :quantity %>
+
+  <%= form.submit %>
+<% end %>
