@@ -12,5 +12,15 @@ RSpec.describe "BulkDiscount Show Page", type: :feature do
       expect(page).to have_content(@discount1.discount_percentage)
       expect(page).to have_content(@discount1.quantity)
     end
+
+    it 'has a link for me to edit this discount' do
+      expect(page).to have_link("Edit this discount")
+    end
+
+    it 'when I click this link, it takes me to a new page with a form to edit the discount' do
+      click_on "Edit this discount"
+
+      expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant1, @discount1))
+    end
   end
 end
